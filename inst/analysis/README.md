@@ -40,7 +40,27 @@ directories. Do not pass a directory containing all three variants to
 `read_reordered_data()`, because files from different patch definitions share
 the same six scenario tokens and would otherwise be pooled together.
 
-Render from the package root, supplying paths if the defaults differ:
+If the package is installed, render from any working directory with the public
+wrapper. `project_root` should be the directory containing `Results/` and
+`Species_PatchDistances/` (or the parent of whatever paths you supply):
+
+```r
+patchFPCA::render_spatial_report(
+  project_root = "/path/to/your/analysis-project",
+  fpca_results_dir = "Results",
+  patch_dir = "Species_PatchDistances",
+  spatial_output_dir = "Results/spatial_autocorrelation",
+  merge_variant = "20m"
+)
+```
+
+The wrapper locates the files with `system.file()`, copies the Rmd, helper, and
+bibliography to a writable `spatial-report/` directory, and renders the PDF
+there. In an installed package, do not use the source-tree path
+`inst/analysis/04_spatial_autocorrelation.Rmd` directly.
+
+Package developers working from a source checkout can instead render from the
+package root:
 
 ```r
 rmarkdown::render(

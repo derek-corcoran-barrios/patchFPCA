@@ -4,6 +4,8 @@
   terms with selected dbMEM variables, compares non-spatial and SPDE species
   mixed models, evaluates patch spatial support and mesh resolution, and checks
   grouped DHARMa residual spatial autocorrelation.
+- Added `render_spatial_report()` so the bundled report can be rendered from an
+  installed package without relying on source-repository `inst/` paths.
 
 # patchFPCA 0.1.0
 

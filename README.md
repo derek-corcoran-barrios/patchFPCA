@@ -66,6 +66,22 @@ shapefiles and matching 0 m, 10 m, or 20 m correction lookups, compares the
 same ecological model with and without a spatial field, evaluates mesh and
 centroid sensitivity, and performs grouped DHARMa Moran diagnostics.
 
+When `patchFPCA` is installed, render the bundled report from any working
+directory with:
+
+```r
+patchFPCA::render_spatial_report(
+  project_root = "/path/to/your/analysis-project",
+  fpca_results_dir = "Results",
+  patch_dir = "Species_PatchDistances",
+  merge_variant = "20m"
+)
+```
+
+The function copies the report, helper file, and bibliography from the
+installed package into a writable `spatial-report/` directory beneath
+`project_root` before knitting.
+
 ## Important centering note
 
 The supplied manuscript code uses `prcomp(..., center = FALSE, scale. = FALSE)`.
