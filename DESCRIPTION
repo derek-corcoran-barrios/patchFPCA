@@ -1,0 +1,24 @@
+Package: patchFPCA
+Type: Package
+Title: Functional PCA of Habitat-Patch Distance Profiles
+Version: 0.1.0
+Authors@R: c(
+    person(given = "Nathalie Puggaard Elkær A", family = "Ibsen",
+           role = "aut", comment = "Author of the supplied analysis scripts"),
+    person(given = "Derek", family = "Corcoran",
+           email = "maintainer@example.org", role = c("cre", "ctb"),
+           comment = "Package maintainer; replace placeholder email before publication")
+    )
+Description: Reproducible preprocessing, balanced functional principal
+    component analysis, patch projection, and diagnostic tests for ordered
+    nearest-neighbour habitat-patch distance profiles. The default analysis
+    reproduces the supplied manuscript scripts by fitting an uncentred,
+    unscaled principal component analysis to log-transformed profiles, while
+    also supporting conventional column-centred sensitivity analyses.
+License: MIT + file LICENSE
+Encoding: UTF-8
+Depends: R (>= 4.1.0)
+Suggests:
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Config/roxygen2/version: 8.1.0
