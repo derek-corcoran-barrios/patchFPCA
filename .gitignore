@@ -4,3 +4,8 @@
 .httr-oauth
 .DS_Store
 .quarto
+inst/analysis/*_cache/
+inst/analysis/*_files/
+inst/analysis/*.pdf
+inst/analysis/*.tex
+inst/analysis/spatial-output/
