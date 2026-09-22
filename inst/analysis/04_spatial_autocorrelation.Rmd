@@ -25,9 +25,11 @@ params:
   mem_method: "MIR"
   mem_nperm: 999
   mem_nperm_global: 9999
-  mesh_cutoffs_km: [10, 20, 40]
+  mesh_cutoffs_km:
+    value: [10, 20, 40]
   primary_cutoff_km: 20
-  residual_grid_km: [2.5, 5, 10]
+  residual_grid_km:
+    value: [2.5, 5, 10]
   residual_nsim: 500
   run_centroid_sensitivity: true
   seed: 37
