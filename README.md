@@ -11,16 +11,10 @@ the manuscript's loading, invariance, and species-rank diagnostics.
 
 ## Install
 
-After unzipping the delivery, install the included source archive with:
+install the package with:
 
 ```r
-install.packages("path/to/patchFPCA_0.1.0.tar.gz", repos = NULL, type = "source")
-```
-
-During development you can install directly from the source directory with:
-
-```r
-remotes::install_local("path/to/patchFPCA")
+remotes::install_github("derek-corcoran-barrios/"patchFPCA")
 ```
 
 The package itself uses base R only. `testthat` is needed only to run its
