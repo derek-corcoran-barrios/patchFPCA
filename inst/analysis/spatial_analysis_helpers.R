@@ -89,7 +89,8 @@ read_fpca_patch_scores <- function(results_dir, results_file = NULL) {
   if (!file.exists(results_file)) {
     stop(
       "Missing patch-level FPCA results: ", results_file,
-      ". Run inst/analysis/02_run_fpca.R first.",
+      ". Set fpca_results_dir to the directory containing this file, or ",
+      "generate it with patchFPCA::save_fpca_results().",
       call. = FALSE
     )
   }
