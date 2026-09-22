@@ -14,7 +14,7 @@ the manuscript's loading, invariance, and species-rank diagnostics.
 install the package with:
 
 ```r
-remotes::install_github("derek-corcoran-barrios/"patchFPCA")
+remotes::install_github("derek-corcoran-barrios/patchFPCA")
 ```
 
 The package itself uses base R only. `testthat` is needed only to run its
@@ -58,6 +58,13 @@ species_rank_correlations(results)
 
 Complete path-safe scripts are in `inst/analysis/`. The five scripts supplied
 by Nathalie are retained unchanged in `inst/original-scripts/` for provenance.
+
+The bookdown report `inst/analysis/04_spatial_autocorrelation.Rmd` extends the
+patch-level inference with selected dbMEM spatial variables and sdmTMB SPDE
+mixed models. It reconstructs final patch geometry from the delivered
+shapefiles and matching 0 m, 10 m, or 20 m correction lookups, compares the
+same ecological model with and without a spatial field, evaluates mesh and
+centroid sensitivity, and performs grouped DHARMa Moran diagnostics.
 
 ## Important centering note
 
