@@ -16,8 +16,9 @@
 #' @param merge_variant Patch correction used to generate the FPCA inputs.
 #' @param report_dir Writable directory into which the report sources, cache,
 #'   and PDF are copied or generated, relative to `project_root` unless
-#'   absolute.
+#'   absolute. When `NULL`, uses `spatial-report/<merge_variant>`.
 #' @param output_file PDF filename. Supply a filename, not a directory path.
+#'   When `NULL`, includes `merge_variant` in the filename.
 #' @param quiet Passed to [rmarkdown::render()].
 #' @return Invisibly, the normalized path to the rendered PDF.
 #' @export
@@ -27,10 +28,20 @@ render_spatial_report <- function(
     patch_dir = "Species_PatchDistances",
     spatial_output_dir = "Results/spatial_autocorrelation",
     merge_variant = c("20m", "10m", "zero"),
-    report_dir = "spatial-report",
-    output_file = "patchFPCA_spatial_autocorrelation.pdf",
+    report_dir = NULL,
+    output_file = NULL,
     quiet = FALSE) {
   merge_variant <- match.arg(merge_variant)
+  if (is.null(report_dir)) {
+    report_dir <- file.path("spatial-report", merge_variant)
+  }
+  if (is.null(output_file)) {
+    output_file <- paste0(
+      "patchFPCA_spatial_autocorrelation_",
+      merge_variant,
+      ".pdf"
+    )
+  }
 
   required_packages <- c("rmarkdown", "bookdown")
   missing_packages <- required_packages[
