@@ -10,8 +10,8 @@ render_spatial_report(
   patch_dir = "Species_PatchDistances",
   spatial_output_dir = "Results/spatial_autocorrelation",
   merge_variant = c("20m", "10m", "zero"),
-  report_dir = "spatial-report",
-  output_file = "patchFPCA_spatial_autocorrelation.pdf",
+  report_dir = NULL,
+  output_file = NULL,
   quiet = FALSE
 )
 }
@@ -32,9 +32,11 @@ relative to \code{project_root} unless absolute.}
 
 \item{report_dir}{Writable directory into which the report sources, cache,
 and PDF are copied or generated, relative to \code{project_root} unless
-absolute.}
+absolute. When \code{NULL}, uses
+\code{spatial-report/<merge_variant>}.}
 
-\item{output_file}{PDF filename. Supply a filename, not a directory path.}
+\item{output_file}{PDF filename. Supply a filename, not a directory path.
+When \code{NULL}, includes \code{merge_variant} in the filename.}
 
 \item{quiet}{Passed to \code{rmarkdown::render()}.}
 }

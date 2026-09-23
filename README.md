@@ -79,8 +79,9 @@ patchFPCA::render_spatial_report(
 ```
 
 The function copies the report, helper file, and bibliography from the
-installed package into a writable `spatial-report/` directory beneath
-`project_root` before knitting.
+installed package into a writable `spatial-report/<merge_variant>/` directory
+beneath `project_root` before knitting. The correction is also included in the
+PDF filename, so 0 m, 10 m, and 20 m reports do not overwrite one another.
 
 ## Important centering note
 

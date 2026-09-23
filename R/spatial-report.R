@@ -16,8 +16,9 @@
 #' @param merge_variant Patch correction used to generate the FPCA inputs.
 #' @param report_dir Writable directory into which the report sources, cache,
 #'   and PDF are copied or generated, relative to `project_root` unless
-#'   absolute.
+#'   absolute. When `NULL`, uses `spatial-report/<merge_variant>`.
 #' @param output_file PDF filename. Supply a filename, not a directory path.
+#'   When `NULL`, includes `merge_variant` in the filename.
 #' @param quiet Passed to [rmarkdown::render()].
 #' @return Invisibly, the normalized path to the rendered PDF.
 #' @export
@@ -27,10 +28,20 @@ render_spatial_report <- function(
     patch_dir = "Species_PatchDistances",
     spatial_output_dir = "Results/spatial_autocorrelation",
     merge_variant = c("20m", "10m", "zero"),
-    report_dir = "spatial-report",
-    output_file = "patchFPCA_spatial_autocorrelation.pdf",
+    report_dir = NULL,
+    output_file = NULL,
     quiet = FALSE) {
   merge_variant <- match.arg(merge_variant)
+  if (is.null(report_dir)) {
+    report_dir <- file.path("spatial-report", merge_variant)
+  }
+  if (is.null(output_file)) {
+    output_file <- paste0(
+      "patchFPCA_spatial_autocorrelation_",
+      merge_variant,
+      ".pdf"
+    )
+  }
 
   required_packages <- c("rmarkdown", "bookdown")
   missing_packages <- required_packages[
@@ -45,6 +56,39 @@ render_spatial_report <- function(
   }
 
   project_root <- normalizePath(project_root, winslash = "/", mustWork = TRUE)
+  resolve_project_path <- function(path) {
+    path_is_absolute <- grepl("^(/|[A-Za-z]:[/\\\\])", path)
+    normalizePath(
+      if (path_is_absolute) path else file.path(project_root, path),
+      winslash = "/",
+      mustWork = FALSE
+    )
+  }
+
+  resolved_results_dir <- resolve_project_path(fpca_results_dir)
+  expected_results_file <- file.path(
+    resolved_results_dir,
+    "patch_fpca_results.rds"
+  )
+  if (!file.exists(expected_results_file)) {
+    stop(
+      "Cannot render the spatial report because this file is missing: ",
+      expected_results_file, ". ",
+      "Set fpca_results_dir to the directory containing patch_fpca_results.rds, ",
+      "or generate it with patchFPCA::save_fpca_results().",
+      call. = FALSE
+    )
+  }
+
+  resolved_patch_dir <- resolve_project_path(patch_dir)
+  if (!dir.exists(resolved_patch_dir)) {
+    stop(
+      "Cannot render the spatial report because patch_dir does not exist: ",
+      resolved_patch_dir,
+      call. = FALSE
+    )
+  }
+
   is_absolute <- grepl("^(/|[A-Za-z]:[/\\\\])", report_dir)
   report_dir <- if (is_absolute) report_dir else file.path(project_root, report_dir)
   dir.create(report_dir, recursive = TRUE, showWarnings = FALSE)

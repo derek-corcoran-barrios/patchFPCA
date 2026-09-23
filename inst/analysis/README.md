@@ -55,8 +55,8 @@ patchFPCA::render_spatial_report(
 ```
 
 The wrapper locates the files with `system.file()`, copies the Rmd, helper, and
-bibliography to a writable `spatial-report/` directory, and renders the PDF
-there. In an installed package, do not use the source-tree path
+bibliography to a writable `spatial-report/<merge_variant>/` directory, and
+renders a variant-named PDF there. In an installed package, do not use the source-tree path
 `inst/analysis/04_spatial_autocorrelation.Rmd` directly.
 
 Package developers working from a source checkout can instead render from the
