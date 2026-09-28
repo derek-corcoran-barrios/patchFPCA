@@ -1,7 +1,7 @@
 Package: patchFPCA
 Type: Package
 Title: Functional PCA of Habitat-Patch Distance Profiles
-Version: 0.1.1
+Version: 0.1.2
 Authors@R: c(
     person(given = "Nathalie Puggaard Elkær A", family = "Ibsen",
            role = "aut", comment = "Author of the supplied analysis scripts"),

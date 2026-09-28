@@ -742,6 +742,23 @@ make_dharma_residuals <- function(model, nsim = 500, seed = 37) {
   )
 }
 
+moran_test_values <- function(test) {
+  # DHARMa::testSpatialAutocorrelation() returns an htest with a named
+  # statistic, not an estimate field.
+  statistic <- test$statistic
+  if (is.null(statistic) || !all(c("observed", "expected") %in% names(statistic))) {
+    stop("Unexpected DHARMa Moran test: missing observed/expected statistic.",
+         call. = FALSE)
+  }
+  values <- c(observed = as.numeric(statistic[["observed"]]),
+              expected = as.numeric(statistic[["expected"]]),
+              p_value = as.numeric(test$p.value))
+  if (length(values) != 3L || any(!is.finite(values))) {
+    stop("DHARMa Moran test did not return three finite scalar values.", call. = FALSE)
+  }
+  values
+}
+
 dharma_spatial_test_from_residuals <- function(
     residuals,
     data,
@@ -772,21 +789,11 @@ dharma_spatial_test_from_residuals <- function(
     y = locations$Y,
     plot = FALSE
   )
-  estimates <- test$estimate
-  observed <- if ("observed" %in% names(estimates)) {
-    unname(estimates[["observed"]])
-  } else {
-    unname(estimates[[1L]])
-  }
-  expected <- if ("expected" %in% names(estimates)) {
-    unname(estimates[["expected"]])
-  } else {
-    NA_real_
-  }
+  values <- moran_test_values(test)
   result_table <- data.frame(
-    moran_observed = observed,
-    moran_expected = expected,
-    p_value = test$p.value,
+    moran_observed = values[["observed"]],
+    moran_expected = values[["expected"]],
+    p_value = values[["p_value"]],
     n_spatial_cells = nrow(locations),
     grid_km = grid_km,
     nsim = nsim,

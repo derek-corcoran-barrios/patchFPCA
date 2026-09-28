@@ -1,3 +1,10 @@
+# patchFPCA 0.1.2
+
+- Read the observed and expected Moran's I from DHARMa's `statistic` field;
+  reject malformed test results rather than failing after residual simulation.
+- Disable knitr's lazy-load cache for the bundled spatial report because
+  multi-million-row spatial objects can exceed its serialization limits.
+
 # patchFPCA 0.1.1
 
 - Added a bookdown spatial-robustness report that replaces linear coordinate

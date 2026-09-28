@@ -79,3 +79,10 @@ rmarkdown::render(
 The report writes model objects, tables, a run manifest, and the assembled
 model data to `spatial_output_dir`. Generated PDF/TeX/cache files and result
 folders should remain outside version control.
+
+The report uses `cache = FALSE` because knitr's lazy-load cache cannot
+serialize some multi-million-row spatial objects. The prepared model table is
+saved as a regular `spatial_model_data.rds` in `spatial_output_dir`. For a
+resumable 0 m preparation and the comparison with the original coordinate
+model, use the workflow in the ButterflyHabitats project's `spatial-report/`
+directory. Its preparation saves each scenario separately before fitting.
